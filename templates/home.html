@@ -11,14 +11,17 @@
         <h1 class="title">PeerShare</h1>
         <i class="subtitle">Peer-to-peer file sharing</i>
         <div class="main">
-            <div class="upload panel">
+            <div class="upload panel" id="upload-panel">
                 <div class="upload-wrapper">
                     <i>Drop a file &#8679</i>
                     <input type="file" id="upload">
                 </div>
             </div>
-            <div class="download panel">
-                Bye, friend.
+            <div class="download panel" id="download-panel">
+                <i>Download file &#8681</i>
+            </div>
+            <div class="panel" id="loader-panel">
+                <div class="loader"></div>
             </div>
         </div>
         <footer>
@@ -27,7 +30,7 @@
             </a>
             <i class="subtitle">Github</i>
         </footer>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js" integrity="sha512-AcZyhRP/tbAEsXCCGlziPun5iFvcSUpEz2jKkx0blkYKbxU81F+iq8FURwPn1sYFeksJ+sDDrI5XujsqSobWdQ==" crossorigin="anonymous"></script>
+        <script src="static/socket.io.js"></script>
         <script src="static/client.js" async defer></script>
     </body>
 </html>

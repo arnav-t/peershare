@@ -11,6 +11,7 @@ class App {
             const addr = sock.request.connection.remoteAddress;
             console.log(`[+] Received connection from ${addr}`);
             sock.on('syn', room => this.onSyn(sock, room));
+            sock.on('disconnect', () => this.onDisconnect(sock));
         });
     }
 
@@ -18,7 +19,7 @@ class App {
     async onSyn(sock, room) {
         if (typeof room !== 'string') return;
         const token = Math.random().toString(36).substr(2);
-        let data;
+        let master;
         if (room in this.roomStore) {
             // Connect as peer
             console.log(`[+] Adding ${token} to ${room} as peer`);
@@ -27,11 +28,8 @@ class App {
                 room: room,
                 master: false
             }
-            this.roomStore[room].peers.push(token);
-            data = {
-                token: token,
-                master: false,
-            }
+            this.roomStore[room].peers.add(token);
+            master = false;
         } else {
             // Connect as master
             console.log(`[+] Adding ${token} to ${room} as master`);
@@ -42,14 +40,36 @@ class App {
             }
             this.roomStore[room] = {
                 master: token,
-                peers: []
+                peers: new Set()
             }
-            data = {
-                token: token,
-                master: true,
-            }
+            master = true;
         }
-        sock.emit('ack', data);
+        sock.token = token;
+        sock.emit('ack', master);
+    }
+
+    /** Tear down connection */
+    async onDisconnect(sock) {
+        const token = sock.token;
+        if (!token) return;
+        if (token in this.tokenStore) {
+            const room = this.tokenStore[token].room;
+            if (this.tokenStore[token].master) {
+                // Delete room, own and all peer connections,
+                console.log(`[-] Deleting master connection ${token} and room ${room}`);
+                this.roomStore[room].peers.forEach(peerToken => {
+                    let peerSock = this.tokenStore[peerToken].sock;
+                    peerSock.disconnect(true);
+                    delete this.tokenStore[peerToken];
+                });
+                delete this.roomStore[room];
+            } else {
+                // Delete own connection
+                console.log(`[-] Deleting peer connection ${token} from room ${room}`);
+                this.roomStore[room].peers.delete(token);
+            }
+            delete this.tokenStore[token];
+        }
     }
 }
 

@@ -3,9 +3,13 @@ const uri = 'ws://' + window.location.host;
 const room = window.location.pathname.substr(1);
 let sock = null;
 let token = null;
+let master = null;
 
 // Elements
 const fileUploader = document.querySelector('#upload');
+const loaderPanel = document.querySelector('#loader-panel');
+const uploadPanel = document.querySelector('#upload-panel');
+const downloadPanel = document.querySelector('#download-panel');
 
 // Attach listeners
 fileUploader.addEventListener('change', onFile, false);
@@ -30,7 +34,12 @@ async function init() {
 
 /** Set up socket */
 async function setup() {
-    sock.on('ack', data => console.log(data));
+    sock.on('ack', isMaster => {
+        master = isMaster;
+        loaderPanel.style.display = 'none';
+        if (master) uploadPanel.style.display = 'flex';
+        else downloadPanel.style.display = 'flex';
+    });
 }
 
 // For testing

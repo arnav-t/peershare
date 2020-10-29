@@ -46,6 +46,7 @@ footer {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
+    justify-content: center;
     transition: box-shadow 0.2s;
 }
 
@@ -56,6 +57,7 @@ footer {
 .upload {
     background-color: rgb(34, 34, 199);
     color: white;
+    display: none;
 }
 
 .download {
@@ -97,4 +99,26 @@ footer {
 
 .gh-button:hover {
     filter: drop-shadow(0 0 5px gray);
+}
+
+/* || Loader */
+.loader {
+    border: 8px solid rgba(0,0,0,0);
+    border-radius: 50%;
+    border-top: 8px solid gray;
+    border-bottom: 8px solid gray;
+    width: 64px;
+    height: 64px;
+    -webkit-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

@@ -7,8 +7,9 @@ const server = http.createServer(app);
 
 // Serve webpages and resource files
 const resources = {
-    '/': '/templates/home.html',
+    '/:id': '/templates/home.html',
     '/static/styles.css': '/static/styles.css',
+    '/static/socket.io.js': '/static/socket.io.js',
     '/static/client.js': '/static/client.js',
     '/static/github.png': '/static/github.png'
 }
