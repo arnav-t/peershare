@@ -3,6 +3,17 @@
 /* || Site-wide */
 body {
     font-family: 'Roboto', sand-serif;
+    overflow: hidden;
+    height: 100vh;
+}
+
+footer {
+    position: absolute;
+    bottom: 0px;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* || Text classes */
@@ -12,4 +23,78 @@ body {
 
 .subtitle {
     color: gray;
+}
+
+/* || Layout */
+.main {
+    margin-top: 20px;
+    width: 100vw;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.panel {
+    min-height: 240px;
+    height: 60vh;
+    min-width: 320px;
+    width: 60%;
+    border-radius: 20px;
+    box-shadow: 0 0 8px #555;
+    padding: 5px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    transition: box-shadow 0.2s;
+}
+
+.panel:hover {
+    box-shadow: 0 0 15px #333;
+}
+
+.upload {
+    background-color: rgb(34, 34, 199);
+    color: white;
+}
+
+.download {
+    background-color: rgb(115, 255, 0);
+    display: none;
+}
+
+.upload-wrapper {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-self: center;
+}
+
+.upload-wrapper i{
+    margin: auto;
+}
+
+.upload-wrapper input[type=file] {
+    font-size: 1000px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+
+/* || Filters */
+.gh-button {
+    margin-right: 5px;
+    height: 24px;
+    width: 24px;
+    -webkit-filter: invert(.4);
+    filter: invert(.4);
+}
+
+.gh-button:hover {
+    filter: drop-shadow(0 0 5px gray);
 }

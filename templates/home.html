@@ -10,7 +10,24 @@
     <body>
         <h1 class="title">PeerShare</h1>
         <i class="subtitle">Peer-to-peer file sharing</i>
-        
+        <div class="main">
+            <div class="upload panel">
+                <div class="upload-wrapper">
+                    <i>Drop a file &#8679</i>
+                    <input type="file" id="upload">
+                </div>
+            </div>
+            <div class="download panel">
+                Bye, friend.
+            </div>
+        </div>
+        <footer>
+            <a href="https://github.com/arnav-t/peershare" target="_blank" red="noopener noreferrer">
+                <img src="static/github.png" class="gh-button">
+            </a>
+            <i class="subtitle">Github</i>
+        </footer>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js" integrity="sha512-AcZyhRP/tbAEsXCCGlziPun5iFvcSUpEz2jKkx0blkYKbxU81F+iq8FURwPn1sYFeksJ+sDDrI5XujsqSobWdQ==" crossorigin="anonymous"></script>
         <script src="static/client.js" async defer></script>
     </body>
 </html>
