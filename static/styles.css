@@ -57,12 +57,10 @@ footer {
 .upload {
     background-color: rgb(34, 34, 199);
     color: white;
-    display: none;
 }
 
 .download {
     background-color: rgb(115, 255, 0);
-    display: none;
 }
 
 .upload-wrapper {

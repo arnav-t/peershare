@@ -8,29 +8,7 @@
         <link rel="stylesheet" href="static/styles.css">
     </head>
     <body>
-        <h1 class="title">PeerShare</h1>
-        <i class="subtitle">Peer-to-peer file sharing</i>
-        <div class="main">
-            <div class="upload panel" id="upload-panel">
-                <div class="upload-wrapper">
-                    <i>Drop a file &#8679</i>
-                    <input type="file" id="upload">
-                </div>
-            </div>
-            <div class="download panel" id="download-panel">
-                <i>Download file &#8681</i>
-            </div>
-            <div class="panel" id="loader-panel">
-                <div class="loader"></div>
-            </div>
-        </div>
-        <footer>
-            <a href="https://github.com/arnav-t/peershare" target="_blank" red="noopener noreferrer">
-                <img src="static/github.png" class="gh-button">
-            </a>
-            <i class="subtitle">Github</i>
-        </footer>
-        <script src="static/socket.io.js"></script>
-        <script src="static/client.js" async defer></script>
+        <div id="root"></div>
+        <script src="dist/bundle.js"></script>
     </body>
 </html>
