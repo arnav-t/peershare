@@ -7,11 +7,9 @@ const server = http.createServer(app);
 
 // Serve webpages and resource files
 const resources = {
-    '/:id': '/templates/home.html',
-    '/static/styles.css': '/static/styles.css',
-    '/static/socket.io.js': '/static/socket.io.js',
-    '/static/client.js': '/static/client.js',
-    '/static/github.png': '/static/github.png'
+    '/dist/bundle.js': '/dist/bundle.js',
+    '/static/github.png': '/static/github.png',
+    '/*': '/templates/home.html'
 }
 
 // Set up routes
