@@ -1,5 +1,13 @@
 class App {
     constructor (server) {
+        // Bind this
+        this.onSyn = this.onSyn.bind(this);
+        this.onDisconnect = this.onDisconnect.bind(this);
+        this.onMasterIce = this.onMasterIce.bind(this);
+        this.onPeerIce = this.onPeerIce.bind(this);
+        this.onMasterOffer = this.onMasterOffer.bind(this);
+        this.onPeerAnswer = this.onPeerAnswer.bind(this);
+
         // Stores
         this.roomStore = {};
         this.tokenStore = {};
@@ -12,6 +20,10 @@ class App {
             console.log(`[+] Received connection from ${addr}`);
             sock.on('syn', room => this.onSyn(sock, room));
             sock.on('disconnect', () => this.onDisconnect(sock));
+            sock.on('masterICE', (ice, token) => this.onMasterIce(ice, token));
+            sock.on('peerICE', ice => this.onPeerIce(sock, ice));
+            sock.on('masterOffer', (desc, token) => this.onMasterOffer(desc, token));
+            sock.on('peerAnswer', desc => this.onPeerAnswer(sock, desc));
         });
     }
 
@@ -30,6 +42,9 @@ class App {
             }
             this.roomStore[room].peers.add(token);
             master = false;
+            const masterToken = this.roomStore[room].master;
+            const masterSock = this.tokenStore[masterToken].sock;
+            masterSock.emit('peer', token);
         } else {
             // Connect as master
             console.log(`[+] Adding ${token} to ${room} as master`);
@@ -70,6 +85,36 @@ class App {
             }
             delete this.tokenStore[token];
         }
+    }
+
+    /** Received a master ICE candidate */
+    async onMasterIce(ice, token) {
+        const peerSock = this.tokenStore[token].sock;
+        peerSock.emit('masterICE', ice);
+    }
+
+    /** Received a peer ICE candidate */
+    async onPeerIce(sock, ice) {
+        const token = sock.token;
+        const room = this.tokenStore[token].room;
+        const masterToken = this.roomStore[room].master;
+        const masterSock = this.tokenStore[masterToken].sock;
+        masterSock.emit('peerICE', ice, token);
+    }
+
+    /** Received offer from master */
+    async onMasterOffer(desc, token) {
+        const peerSock = this.tokenStore[token].sock;
+        peerSock.emit('masterOffer', desc);
+    }
+
+    /** Received offer from peer */
+    async onPeerAnswer(sock, desc) {
+        const token = sock.token;
+        const room = this.tokenStore[token].room;
+        const masterToken = this.roomStore[room].master;
+        const masterSock = this.tokenStore[masterToken].sock;
+        masterSock.emit('peerAnswer', desc, token);
     }
 }
 

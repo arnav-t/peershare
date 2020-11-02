@@ -5,6 +5,9 @@ body {
     font-family: 'Roboto', sand-serif;
     overflow: hidden;
     height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
 }
 
 footer {
@@ -28,14 +31,15 @@ footer {
 /* || Layout */
 .main {
     margin-top: 20px;
-    width: 100vw;
+    padding: 4px;
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
 }
 
 .panel {
+    margin: 2px;
     min-height: 240px;
     height: 60vh;
     min-width: 320px;
