@@ -1,7 +1,10 @@
-const express = require('express');
-const http = require('http');
-const App = require('./controller/app.js');
+import express from 'express';
+import http from 'http';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+import WSServer from './src/ws-server.js';
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 const server = http.createServer(app);
 
@@ -22,4 +25,4 @@ for (const path in resources) {
 // Start listening
 const port = process.env.PORT || 8080;
 server.listen(port, () => console.log(`[+] Listening on port ${port}...`));
-const wsApp = new App(server);
+const wsApp = new WSServer(server);

@@ -1,4 +1,6 @@
-class App {
+import io from 'socket.io';
+
+export default class WSServer {
     constructor (server) {
         // Bind this
         this.onSyn = this.onSyn.bind(this);
@@ -14,7 +16,7 @@ class App {
 
         // Initialize websocket server
         console.log('[+] Initializing WS server...');
-        this.io = require('socket.io')(server);
+        this.io = io(server);
         this.io.on('connect', sock => {
             const addr = sock.request.connection.remoteAddress;
             console.log(`[+] Received connection from ${addr}`);
@@ -117,5 +119,3 @@ class App {
         masterSock.emit('peerAnswer', desc, token);
     }
 }
-
-module.exports = App;
