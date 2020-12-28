@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class StatusPanel extends Component {
-    render() {
-        return (
-            <div className="panel">
-                <b>{this.props.fileName}</b>
-            </div>
-        );
-    }
-}
+export const StatusPanel = ({ fileName }) => {
+    return (
+        <div className="panel">
+            <b>{fileName}</b>
+        </div>
+    );
+};

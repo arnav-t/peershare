@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import LoaderPanel from './loader-panel.jsx';
-import UploadPanel from './upload-panel.jsx';
-import DownloadPanel from './download-panel.jsx';
-import StatusPanel from './status-panel.jsx';
+import { LoaderPanel } from './loader-panel.jsx';
+import { UploadPanel } from './upload-panel.jsx';
+import { DownloadPanel } from './download-panel.jsx';
+import { StatusPanel } from './status-panel.jsx';
 import io from 'socket.io-client';
 
 const config = {
     iceServers: [{url: 'stun:stun.1.google.com:19302'}]
-}
+};
 
 export default class Dashboard extends Component {
     constructor(props) {

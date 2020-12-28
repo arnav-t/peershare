@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class LoaderPanel extends Component {
-    render() {
-        return (
-            <div className="panel">
-                <div className="loader" />
-            </div>
-        );
-    }
-}
+export const LoaderPanel = () => {
+    return (
+        <div className="panel">
+            <div className="loader" />
+        </div>
+    );
+};
